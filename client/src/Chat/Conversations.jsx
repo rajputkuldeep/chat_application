@@ -8,10 +8,6 @@ import LanguageIcon from "@material-ui/icons/Language";
 import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/core/styles";
 import socketIOClient from "socket.io-client";
-
-
-
-
 import { useGetConversations } from "../Services/chatService";
 import { authenticationService } from "../Services/authenticationService";
 import commonUtilites from "../Utilities/common";

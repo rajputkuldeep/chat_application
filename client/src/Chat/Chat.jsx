@@ -68,7 +68,7 @@ const Chat = () => {
                             >
                                 <Tab label="Chats"/>
                                 <Tab label="Users"/>
-                                <Tab label="Number of users"/>
+                                <Tab label="Number of contacts"/>
                             </Tabs>
                         </Paper>
                         {tab === 0 && (
@@ -78,10 +78,7 @@ const Chat = () => {
                             />
                         )}
                         {tab === 1 && (
-
                             <Users setUser={setUser} setScope={setScope}
-
-
                             />
                         )}
                         {tab===2 && (

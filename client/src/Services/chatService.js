@@ -2,7 +2,8 @@ import useHandleResponse from '../Utilities/handle-response';
 import authHeader from '../Utilities/auth-header';
 import { useSnackbar } from 'notistack';
 
-// Receive global messages
+// Receive global messages && pagination
+
 export function useGetGlobalMessages() {
     const { enqueueSnackbar } = useSnackbar();
     const handleResponse = useHandleResponse();
@@ -13,7 +14,31 @@ export function useGetGlobalMessages() {
 
     const getGlobalMessages = () => {
         return fetch(
-            `${process.env.REACT_APP_API_URL}/api/messages/global`,
+            `${process.env.REACT_APP_API_URL}/api/messages/pagination`,
+             requestOptions
+        )
+            .then(handleResponse)
+            .catch(() =>
+                enqueueSnackbar('Could not load Global Chat', {
+                    variant: 'error',
+                })
+            );
+    };
+    return getGlobalMessages;
+}
+//cursor api calling
+export function useGetGlobalMessagesByPagination() {
+    const { enqueueSnackbar } = useSnackbar();
+    const handleResponse = useHandleResponse();
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader(),
+    };
+
+    const getGlobalMessagesByPagination = messageLastTimestamp => {
+
+        return fetch(
+            `${process.env.REACT_APP_API_URL}/api/messages/pagination?messageLastTimestamp=${messageLastTimestamp}`,
             requestOptions
         )
             .then(handleResponse)
@@ -23,9 +48,86 @@ export function useGetGlobalMessages() {
                 })
             );
     };
-
-    return getGlobalMessages;
+    return getGlobalMessagesByPagination;
 }
+export function useGetGlobalMessagesBylast_data() {
+    const { enqueueSnackbar } = useSnackbar();
+    const handleResponse = useHandleResponse();
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader(),
+    };
+
+    const getGlobalMessagesByPagination = messageLastTimestamp => {
+
+        return fetch(
+            `${process.env.REACT_APP_API_URL}/api/messages/last_data?messageLastTimestamp=${messageLastTimestamp}`,
+            requestOptions
+        )
+            .then(handleResponse)
+            .catch(() =>
+                enqueueSnackbar('Could not load Global Chat', {
+                    variant: 'error',
+                })
+            );
+    };
+    return getGlobalMessagesByPagination;
+}
+export function useGetGlobalMessagesByDate() {
+    const { enqueueSnackbar } = useSnackbar();
+    const handleResponse = useHandleResponse();
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader(),
+    };
+
+    const getGlobalMessagesByDate = messageLastTimestamp => {
+
+        return fetch(
+            `${process.env.REACT_APP_API_URL}/api/messages/date?messageLastTimestamp=${messageLastTimestamp}`,
+            requestOptions
+        )
+            .then(handleResponse)
+            .catch(() =>
+                enqueueSnackbar('Could not load Global Chat', {
+                    variant: 'error',
+                })
+            );
+    };
+    return getGlobalMessagesByDate;
+}
+//get timestamp
+/*export function timestamp() {
+    const { enqueueSnackbar } = useSnackbar();
+    const handleResponse = useHandleResponse();
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader(),
+    };
+
+    const getTimestamp = chatDate => {
+
+        return fetch(
+            `${process.env.REACT_APP_API_URL}/api/messages/date?messageLastTimestamp=${chatDate}`,
+            requestOptions
+        )
+            .then(handleResponse)
+            .catch(() =>
+                enqueueSnackbar('Could not load Global Chat', {
+                    variant: 'error',
+                })
+            );
+    };
+    return getTimestamp();
+}*/
+
+
+
+
+
+
+
+
 
 // Send a global message
 export function useSendGlobalMessage() {
